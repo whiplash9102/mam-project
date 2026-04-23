@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MÂM · Nền tảng đặt bàn cho nhà hàng Hà Nội</title>
+<meta name="description" content="MÂM giúp nhà hàng lấp đầy bàn trống giờ thấp điểm. Không phí cố định. Chỉ trả khi có khách thật đến.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green:   #1A3C34;
+    --green2:  #2D5A4A;
+    --gold:    #C9963A;
+    --rust:    #E8774A;
+    --cream:   #F6F3EE;
+    --stone:   #E8E3DB;
+    --white:   #FFFFFF;
+    --ink:     #111111;
+    --muted:   #6B6B6B;
+    --light:   #F0EDE8;
+    --border:  #DDD8D0;
+    --radius:  6px;
+    --font-sans: 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .btn-nav {
+    background: var(--green);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .btn-nav:hover { background: var(--green2); }
+
+  /* HERO */
+  .hero {
+    background: var(--green);
+    padding: 96px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: -60px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(201,150,58,0.08);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    max-width: 480px;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 24px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+  .btn-ghost:hover { color: rgba(255,255,255,0.8); }
+  .hero-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* TICKER */
+  .ticker {
+    background: var(--gold);
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    gap: 48px;
+    animation: scroll 22s linear infinite;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .ticker-item { flex-shrink: 0; }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+  }
+  .stat {
+    padding: 32px 32px;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-sans);
+    font-size: 36px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-lbl {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* SECTION */
+  section {
+    padding: 80px 48px;
+  }
+  .section-tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: var(--gold);
+  }
+  section h2 {
+    font-family: var(--font-sans);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+    max-width: 560px;
+  }
+  section h2 em { font-style: italic; color: var(--green); }
+  .section-sub {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 480px;
+    margin-bottom: 48px;
+  }
+
+  /* VALUE PROPS */
+  .value-bg { background: var(--cream); }
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .value-card {
+    background: var(--white);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+  .value-card:hover { background: #fafaf8; }
+  .value-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .value-icon svg { width: 18px; height: 18px; stroke: var(--white); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .value-card h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .value-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* HOW IT WORKS */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    counter-reset: steps;
+  }
+  .how-item {
+    counter-increment: steps;
+  }
+  .how-n {
+    font-family: var(--font-sans);
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--stone);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .how-item h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .how-item p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .how-divider {
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  /* PRICING */
+  .pricing-bg { background: var(--green); }
+  .pricing-bg .section-sub { color: rgba(255,255,255,0.5); }
+  .pricing-bg h2 { color: var(--white); }
+  .pricing-bg h2 em { color: var(--gold); }
+  .pricing-bg .section-tag { color: rgba(201,150,58,0.8); }
+  .pricing-bg .section-tag::before { background: rgba(201,150,58,0.8); }
+  .pricing-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 720px;
+  }
+  .pricing-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .pricing-card.highlight {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+  .pricing-card h3 {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .pricing-card.highlight h3 { color: rgba(255,255,255,0.75); }
+  .price-rows {}
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .pricing-card.highlight .price-row { border-bottom-color: rgba(255,255,255,0.15); }
+  .price-lbl { color: rgba(255,255,255,0.6); }
+  .price-val { color: var(--white); font-weight: 500; }
+  .price-val.free { color: #6ee7b7; }
+  .price-val.highlight-val { color: var(--white); font-size: 15px; }
+  .vs-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.6;
+  }
+
+  /* ROI CALC */
+  .roi-section { background: var(--cream); }
+  .roi-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .roi-controls { }
+  .slider-group {
+    margin-bottom: 24px;
+  }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .slider-val {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  input[type=range] {
+    width: 100%;
+    height: 3px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--stone);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--green);
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .roi-result {
+    background: var(--green);
+    border-radius: 8px;
+    padding: 32px;
+  }
+  .roi-result-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .roi-result-num {
+    font-family: var(--font-sans);
+    font-size: 44px;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .roi-result-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+  }
+  .roi-breakdown {}
+  .roi-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .roi-line:last-child { border-bottom: none; }
+  .roi-line-lbl { color: rgba(255,255,255,0.5); }
+  .roi-line-val { color: var(--white); font-weight: 500; }
+  .roi-line-val.deduct { color: rgba(255,255,255,0.4); }
+
+  /* FAQ */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .faq-item {
+    background: var(--white);
+    padding: 28px;
+  }
+  .faq-q {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .faq-a {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* FORM SECTION */
+  .form-section {
+    background: var(--cream);
+    padding: 80px 48px;
+  }
+  .form-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    max-width: 900px;
+  }
+  .form-left h2 {
+    font-family: var(--font-sans);
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .form-left h2 em { font-style: italic; color: var(--green); }
+  .form-left p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 28px;
+  }
+  .form-guarantees { display: flex; flex-direction: column; gap: 10px; }
+  .guarantee {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .guarantee-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .form-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 36px;
+  }
+  .form-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .form-card .form-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .form-field {
+    margin-bottom: 16px;
+  }
+  .form-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--green);
+  }
+  .form-field textarea { resize: vertical; min-height: 80px; }
+  .form-field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-submit {
+    width: 100%;
+    background: var(--green);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .btn-submit:hover { background: var(--green2); }
+  .form-legal {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  /* SUCCESS STATE */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 32px 0;
+  }
+  .success-icon {
+    width: 48px;
+    height: 48px;
+    background: #d1fae5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+  .success-icon svg { width: 22px; height: 22px; stroke: #065f46; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .form-success h3 { font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .form-success p { font-size: 13px; color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-logo {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero, section, .form-section { padding: 56px 20px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .value-grid, .how-grid, .pricing-wrap, .roi-wrap, .faq-grid, .form-wrap { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MÂM</a>
+  <div class="nav-links">
+    <a href="#how">Cách hoạt động</a>
+    <a href="#pricing">Chi phí</a>
+    <a href="#faq">FAQ</a>
+    <a href="#register" class="btn-nav">Đăng ký thử</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Dành cho nhà hàng tại Hà Nội</div>
+    <h1>Bàn trống tối thứ Ba<br>là tiền <em>bạn đang bỏ đi.</em></h1>
+    <p class="hero-sub">MÂM lấp đầy những khung giờ đó bằng khách thật, có đặt cọc, có xác nhận. Bạn không trả gì cố định, chỉ trả khi có người ngồi xuống.</p>
+    <div class="hero-ctas">
+      <a href="#register" class="btn-primary">Đăng ký thử miễn phí</a>
+      <a href="#how" class="btn-ghost">Xem cách hoạt động →</a>
+    </div>
+    <p class="hero-note">Miễn phí tháng đầu · Không hợp đồng · Setup trong 30 phút</p>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Không phí cố định</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Chỉ trả khi có khách thật</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Tích hợp Zalo &amp; MoMo</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Đặt cọc chống no-show</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Setup 30 phút</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Không phí cố định</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Chỉ trả khi có khách thật</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Tích hợp Zalo &amp; MoMo</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Đặt cọc chống no-show</span>
+    <span class="ticker-item">·</span>
+    <span class="ticker-item">Setup 30 phút</span>
+    <span class="ticker-item">·</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fade-up">
+    <div class="stat-num">0đ</div>
+    <div class="stat-lbl">Phí cố định hàng tháng</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">≥85%</div>
+    <div class="stat-lbl">Tỷ lệ khách thực sự đến (đặt cọc MoMo)</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">~2–3%</div>
+    <div class="stat-lbl">Hoa hồng trên bill · Grab lấy 25–30%</div>
+  </div>
+  <div class="stat fade-up">
+    <div class="stat-num">30'</div>
+    <div class="stat-lbl">Thời gian setup toàn bộ · chúng tôi đến tận nơi</div>
+  </div>
+</div>
+
+<!-- VALUE PROPS -->
+<section class="value-bg fade-up">
+  <div class="section-tag">Tại sao MÂM</div>
+  <h2>Ba vấn đề mà<br><em>mọi nhà hàng đang gặp</em></h2>
+  <p class="section-sub">Và cách MÂM giải quyết từng cái.</p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Khách đặt bàn rồi biến mất</h3>
+      <p>MÂM yêu cầu đặt cọc 50k qua MoMo và nhắc tự động qua Zalo 24h và 2h trước. Khách không đến thì mất cọc, nhà hàng không mất bàn.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3>Bàn trống giờ thấp điểm</h3>
+      <p>Bạn chọn khung giờ muốn lấp đầy và mức ưu đãi. MÂM đưa khách vào đúng lúc đó. Chi phí vận hành vẫn chạy, tốt hơn là có doanh thu 70% so với 0%.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <h3>Không có data về khách</h3>
+      <p>Đặt bàn qua điện thoại không để lại gì. MÂM cho bạn dashboard đơn giản: ai thường đến, giờ nào đông nhất, khách nào đã quay lại.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="fade-up">
+  <div class="section-tag">Cách hoạt động</div>
+  <h2>Bốn bước, <em>bạn chỉ làm một</em></h2>
+  <p class="section-sub">Ba bước đầu chúng tôi lo. Bước cuối là việc của bạn.</p>
+
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-n">01</div>
+      <div class="how-divider"></div>
+      <h3>Chúng tôi setup cho bạn</h3>
+      <p>Chúng tôi đến nhà hàng, tạo trang cho bạn trên MÂM, chụp ảnh menu. 30 phút là xong. Bạn không cần làm gì.</p>
+    </div>
+    <div class="how-item">
+      <div class="how-n">02</div>
+      <div class="how-divider"></div>
+      <h3>Bạn chọn slot muốn lấp</h3>
+      <p>Tối thứ 3, thứ 4 từ 6h–8h, bất kỳ khung giờ nào đang trống. Mức ưu đãi do bạn quyết định. Bật tắt bất kỳ lúc nào.</p>
+    </div>
+    <div class="how-item">
+      <div class="how-n">03</div>
+      <div class="how-divider"></div>
+      <h3>Khách đặt và cọc tự động</h3>
+      <p>Khách book qua app hoặc Zalo, đặt cọc qua MoMo. Bạn nhận thông báo Zalo. Nhắc tự động trước 2 tiếng. Không cần bắt máy.</p>
+    </div>
+    <div class="how-item">
+      <div class="how-n">04</div>
+      <div class="how-divider"></div>
+      <h3>Khách đến, bạn phục vụ</h3>
+      <p>Đúng việc của bạn. Cuối tháng MÂM gửi báo cáo doanh thu thêm và invoice hoa hồng nhỏ.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-bg fade-up">
+  <div class="section-tag">Chi phí</div>
+  <h2>Bạn trả gì, <em>và không trả gì</em></h2>
+  <p class="section-sub">Mọi thứ ở đây. Không có con số ẩn nào.</p>
+
+  <div class="pricing-wrap">
+    <div class="pricing-card">
+      <h3>Bạn không trả</h3>
+      <div class="price-rows">
+        <div class="price-row">
+          <span class="price-lbl">Phí đăng ký</span>
+          <span class="price-val free">0đ</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Phí tháng cố định</span>
+          <span class="price-val free">0đ</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Phí marketing</span>
+          <span class="price-val free">0đ</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Phí setup</span>
+          <span class="price-val free">0đ</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Phí tháng đầu</span>
+          <span class="price-val free">0đ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pricing-card highlight">
+      <h3>Bạn trả khi có khách</h3>
+      <div class="price-rows">
+        <div class="price-row">
+          <span class="price-lbl">Hoa hồng per cover</span>
+          <span class="price-val highlight-val">8–12k / người</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Bàn 2 người</span>
+          <span class="price-val">16–24k VND</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Bàn 4 người</span>
+          <span class="price-val">32–48k VND</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">% bill trung bình</span>
+          <span class="price-val">~2–3%</span>
+        </div>
+        <div class="price-row">
+          <span class="price-lbl">Grab lấy bao nhiêu</span>
+          <span class="price-val" style="text-decoration: line-through; opacity: 0.5;">25–30%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="vs-note">Ví dụ: nhà hàng có 80 covers/tháng qua MÂM, bill trung bình 350k/người → doanh thu thêm 28 triệu, hoa hồng MÂM khoảng 800k. Lợi nhuận ròng thêm ~27.2 triệu/tháng.</p>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="roi-section fade-up">
+  <div class="section-tag">Tính thử</div>
+  <h2>Nhà hàng của bạn<br><em>có thể thêm bao nhiêu?</em></h2>
+  <p class="section-sub">Kéo slider để xem con số thực tế với quy mô nhà hàng của bạn.</p>
+
+  <div class="roi-wrap">
+    <div class="roi-controls">
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Số slot mở mỗi tuần</span>
+          <span class="slider-val" id="slots-val">4 slot</span>
+        </div>
+        <input type="range" min="1" max="20" value="4" step="1" id="slots">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Số người / slot trung bình</span>
+          <span class="slider-val" id="pax-val">2 người</span>
+        </div>
+        <input type="range" min="2" max="8" value="2" step="1" id="pax">
+      </div>
+      <div class="slider-group">
+        <div class="slider-label">
+          <span>Chi tiêu trung bình / người</span>
+          <span class="slider-val" id="spend-val">300k VND</span>
+        </div>
+        <input type="range" min="100" max="800" value="300" step="50" id="spend">
+      </div>
+    </div>
+
+    <div class="roi-result">
+      <div class="roi-result-label">Doanh thu thêm / tháng</div>
+      <div class="roi-result-num" id="roi-total">0</div>
+      <div class="roi-result-sub" id="roi-sub">VND · ước tính</div>
+      <div class="roi-breakdown">
+        <div class="roi-line">
+          <span class="roi-line-lbl">Covers / tháng</span>
+          <span class="roi-line-val" id="roi-covers">0 người</span>
+        </div>
+        <div class="roi-line">
+          <span class="roi-line-lbl">Doanh thu gross</span>
+          <span class="roi-line-val" id="roi-gross">0</span>
+        </div>
+        <div class="roi-line">
+          <span class="roi-line-lbl">Hoa hồng MÂM (~10k/người)</span>
+          <span class="roi-line-val deduct" id="roi-fee">− 0</span>
+        </div>
+        <div class="roi-line">
+          <span class="roi-line-lbl">Lợi nhuận ròng thêm</span>
+          <span class="roi-line-val" id="roi-net" style="color: #6ee7b7;">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="fade-up">
+  <div class="section-tag">Câu hỏi thường gặp</div>
+  <h2>Những gì bạn<br><em>đang muốn hỏi</em></h2>
+
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">Tôi sợ discount làm ảnh hưởng hình ảnh nhà hàng</div>
+      <div class="faq-a">Bạn kiểm soát hoàn toàn: chỉ offer ưu đãi ở khung giờ bạn chọn, không public trên mạng xã hội, không áp dụng cuối tuần hay dịp đặc biệt. Đây là yield management, hàng không cũng làm vậy.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Tôi không có thời gian để quản lý thêm</div>
+      <div class="faq-a">MÂM tích hợp vào Zalo. Mỗi booking mới bạn nhận tin nhắn Zalo, bấm xác nhận là xong. Không cần app riêng. Không cần đăng nhập thêm chỗ nào.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Làm sao tôi biết khách có đến thật không?</div>
+      <div class="faq-a">Mỗi booking có đặt cọc 50k qua MoMo và xác nhận số điện thoại. Khách đặt ảo không bỏ tiền thật. Dashboard cho bạn thấy real-time ai đang đến và ai đã cancel.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Nếu muốn dừng thì sao?</div>
+      <div class="faq-a">Dừng bất kỳ lúc nào, không cần giải thích, không phí phạt. Không có hợp đồng. Nếu tháng đầu bạn không có thêm ít nhất 10 khách mới, chúng tôi hoàn lại toàn bộ.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Khác Grab hay ShopeeFood thế nào?</div>
+      <div class="faq-a">Grab và ShopeeFood là delivery, họ lấy 25–30% mỗi đơn và khách ăn ở nhà. MÂM là reservation, khách đến ngồi tại nhà hàng của bạn, và chúng tôi chỉ lấy ~2–3% bill.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Nhà hàng tôi có phù hợp không?</div>
+      <div class="faq-a">MÂM phù hợp nhất với nhà hàng mid-to-high-end đang có bàn trống giờ thấp điểm. Nếu nhà hàng bạn đang đông 100% mọi tối thì chưa cần chúng tôi, nhưng nếu thứ 3 thứ 4 thường vắng, chúng tôi có thể giúp.</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER FORM -->
+<div class="form-section" id="register">
+  <div class="form-wrap">
+    <div class="form-left">
+      <div class="section-tag">Đăng ký</div>
+      <h2>Thử miễn phí,<br><em>không rủi ro gì</em></h2>
+      <p>Chúng tôi sẽ liên hệ trong vòng 4 giờ để sắp xếp buổi gặp ngắn tại nhà hàng của bạn. Không cần chuẩn bị gì cả.</p>
+      <div class="form-guarantees">
+        <div class="guarantee">
+          <div class="guarantee-dot"></div>
+          <span>Tháng đầu hoàn toàn miễn phí</span>
+        </div>
+        <div class="guarantee">
+          <div class="guarantee-dot"></div>
+          <span>Không hợp đồng, không ràng buộc</span>
+        </div>
+        <div class="guarantee">
+          <div class="guarantee-dot"></div>
+          <span>Nếu không có 10 khách mới trong tháng đầu, hoàn lại toàn bộ</span>
+        </div>
+        <div class="guarantee">
+          <div class="guarantee-dot"></div>
+          <span>Chúng tôi đến tận nơi để setup</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div id="form-content">
+        <h3>Thông tin nhà hàng</h3>
+        <p class="form-sub">Điền vào đây, chúng tôi sẽ gọi lại để đặt lịch gặp.</p>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Tên nhà hàng *</label>
+            <input type="text" id="f-name" placeholder="La Maison..." required>
+          </div>
+          <div class="form-field">
+            <label>Loại ẩm thực</label>
+            <select id="f-cuisine">
+              <option value="">Chọn...</option>
+              <option>Pháp / French</option>
+              <option>Ý / Italian</option>
+              <option>Âu khác / Western</option>
+              <option>Á / Asian</option>
+              <option>Fusion</option>
+              <option>Khác</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Địa chỉ *</label>
+          <input type="text" id="f-address" placeholder="12 Xuân Diệu, Tây Hồ...">
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Tên của bạn *</label>
+            <input type="text" id="f-contact" placeholder="Nguyễn Văn A">
+          </div>
+          <div class="form-field">
+            <label>Số điện thoại / Zalo *</label>
+            <input type="tel" id="f-phone" placeholder="0912 345 678">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label>Khung giờ nào thường trống nhất?</label>
+          <select id="f-slot">
+            <option value="">Chọn...</option>
+            <option>Thứ 2–3 tối</option>
+            <option>Thứ 3–4 tối</option>
+            <option>Thứ 4–5 tối</option>
+            <option>Buổi trưa các ngày thường</option>
+            <option>Nhiều khung giờ</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Câu hỏi hoặc ghi chú thêm</label>
+          <textarea id="f-note" placeholder="Tôi đang muốn hỏi thêm về..."></textarea>
+        </div>
+
+        <button class="btn-submit" onclick="submitForm()">Đăng ký · Chúng tôi gọi lại trong 4 giờ</button>
+        <p class="form-legal">Thông tin của bạn chỉ dùng để liên hệ sắp xếp buổi gặp. Không spam, không chia sẻ cho bên thứ ba.</p>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Đã nhận thông tin rồi!</h3>
+        <p>Chúng tôi sẽ gọi lại trong vòng 4 giờ để sắp xếp buổi gặp tại nhà hàng của bạn.<br><br>Trong lúc đó nếu cần gì, nhắn Zalo: <strong>MÂM HN</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">MÂM</span>
+  <div class="footer-links">
+    <a href="mailto:hello@mam.vn">hello@mam.vn</a>
+    <a href="#">Zalo: MÂM HN</a>
+    <a href="#">Chính sách bảo mật</a>
+  </div>
+</footer>
+
+<script>
+function fmt(n) {
+  if (n >= 1000000) return (n/1000000).toFixed(1).replace('.0','') + ' triệu';
+  if (n >= 1000) return Math.round(n/1000) + 'k';
+  return n.toString();
+}
+
+function fmtVND(n) {
+  return new Intl.NumberFormat('vi-VN').format(n) + ' VND';
+}
+
+function calcROI() {
+  const slots = parseInt(document.getElementById('slots').value);
+  const pax   = parseInt(document.getElementById('pax').value);
+  const spend = parseInt(document.getElementById('spend').value) * 1000;
+
+  document.getElementById('slots-val').textContent = slots + ' slot';
+  document.getElementById('pax-val').textContent = pax + ' người';
+  document.getElementById('spend-val').textContent = Math.round(spend/1000) + 'k VND';
+
+  const coversPerMonth = slots * 4 * pax;
+  const gross = coversPerMonth * spend;
+  const fee   = coversPerMonth * 10000;
+  const net   = gross - fee;
+
+  document.getElementById('roi-covers').textContent = coversPerMonth + ' người';
+  document.getElementById('roi-gross').textContent = fmtVND(gross);
+  document.getElementById('roi-fee').textContent = '− ' + fmtVND(fee);
+  document.getElementById('roi-net').textContent = fmtVND(net);
+  document.getElementById('roi-total').textContent = fmt(net);
+  document.getElementById('roi-sub').textContent = 'VND / tháng · ước tính lợi nhuận ròng';
+}
+
+['slots','pax','spend'].forEach(id => {
+  document.getElementById(id).addEventListener('input', calcROI);
+});
+calcROI();
+
+function submitForm() {
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const addr  = document.getElementById('f-address').value.trim();
+  const contact = document.getElementById('f-contact').value.trim();
+
+  if (!name || !phone || !contact) {
+    alert('Vui lòng điền tên nhà hàng, tên của bạn và số điện thoại.');
+    return;
+  }
+
+  document.getElementById('form-content').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+
+  console.log('Form submitted:', { name, phone, addr, contact,
+    cuisine: document.getElementById('f-cuisine').value,
+    slot: document.getElementById('f-slot').value,
+    note: document.getElementById('f-note').value
+  });
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      e.target.style.transitionDelay = '0.1s';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
