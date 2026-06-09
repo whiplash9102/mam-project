@@ -91,6 +91,7 @@ function fmt(n) {
                 },
                 body: JSON.stringify({
                     _subject: 'MÂM - Đăng ký mới: ' + name,
+                    _cc: 'thanhpx@mamji.vn',
                     'Tên nhà hàng': name,
                     'Loại ẩm thực': cuisine,
                     'Địa chỉ': addr,
