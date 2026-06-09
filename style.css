@@ -91,8 +91,13 @@ nav {
     transition: all 0.2s;
 }
 
+.nav-links .btn-nav {
+    color: var(--white);
+}
+
 .btn-nav:hover {
     background: var(--green2);
+    color: var(--white);
     transform: translateY(-1px);
 }
 
@@ -683,7 +688,7 @@ input[type=range]::-webkit-slider-thumb {
 /* FORM SECTION */
 .form-section {
     background: var(--cream);
-    padding: 80px 48px;
+    padding: 80px 48px 120px;
 }
 
 .form-wrap {
@@ -941,6 +946,10 @@ footer {
     section,
     .form-section {
         padding: 56px 20px;
+    }
+
+    .form-section {
+        padding-bottom: 96px;
     }
 
 
