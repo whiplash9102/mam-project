@@ -1,3 +1,29 @@
+const GOOGLE_ANALYTICS_ID = 'G-5V35SK8H5Z';
+
+function initGoogleAnalytics() {
+    if (!GOOGLE_ANALYTICS_ID || GOOGLE_ANALYTICS_ID === 'G-XXXXXXXXXX') return;
+
+    const tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GOOGLE_ANALYTICS_ID);
+    document.head.appendChild(tag);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+        window.dataLayer.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', GOOGLE_ANALYTICS_ID);
+}
+
+function trackAnalyticsEvent(name, params = {}) {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', name, params);
+    }
+}
+
+initGoogleAnalytics();
+
 function fmt(n) {
             if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0', '') + ' triệu';
             if (n >= 1000) return Math.round(n / 1000) + 'k';
@@ -53,6 +79,9 @@ function fmt(n) {
             const btn = document.querySelector('.btn-submit');
             btn.textContent = 'Đang gửi...';
             btn.disabled = true;
+            trackAnalyticsEvent('generate_lead', {
+                method: 'partner_form'
+            });
 
             fetch('https://formsubmit.co/ajax/mamj.partner@gmail.com', {
                 method: 'POST',
@@ -73,12 +102,18 @@ function fmt(n) {
             })
             .then(response => response.json())
             .then(data => {
+                trackAnalyticsEvent('partner_form_success', {
+                    restaurant_type: cuisine || 'unspecified'
+                });
                 document.getElementById('form-content').style.display = 'none';
                 document.getElementById('form-success').style.display = 'block';
             })
             .catch(error => {
                 // Fallback: still show success and log error
                 console.error('Form error:', error);
+                trackAnalyticsEvent('partner_form_error', {
+                    restaurant_type: cuisine || 'unspecified'
+                });
                 document.getElementById('form-content').style.display = 'none';
                 document.getElementById('form-success').style.display = 'block';
             });
