@@ -88,17 +88,20 @@
         </section>
 
         <section class="signal-strip fade-up">
-            <div>
-                <strong>Vấn đề</strong>
-                <span>Bàn trống giữa tuần không tự đầy lại.</span>
+            <div class="signal-card">
+                <span class="signal-step">01</span>
+                <strong>Giờ vắng</strong>
+                <p>Thứ 2-4 tối, một vài bàn vẫn trống dù bếp và nhân sự đã sẵn sàng.</p>
             </div>
-            <div>
-                <strong>Giải pháp</strong>
-                <span>MÂM mang khách đã đặt trước đến đúng khung giờ.</span>
+            <div class="signal-card">
+                <span class="signal-step">02</span>
+                <strong>MÂM fill booking</strong>
+                <p>Nhà hàng mở slot cần lấp. MÂM đưa khách đã đặt trước vào đúng giờ đó.</p>
             </div>
-            <div>
-                <strong>Chi phí</strong>
-                <span>Không khách, không phí.</span>
+            <div class="signal-card">
+                <span class="signal-step">03</span>
+                <strong>Khách đến ăn</strong>
+                <p>Bạn chỉ trả phí trên khách thực sự đến quán. Không khách, không phí.</p>
             </div>
         </section>
 
@@ -109,19 +112,37 @@
                 <p>Owner không cần thêm một kênh phức tạp. Owner cần một cách để biến giờ vắng thành booking có khả năng đến thật.</p>
             </div>
             <div class="before-after">
-                <div class="capacity-column">
-                    <span>Không có MÂM</span>
-                    <div class="table-map">
-                        <i></i><i></i><i class="empty"></i><i></i><i class="empty"></i><i class="empty"></i>
+                <div class="capacity-panel">
+                    <div class="panel-head">
+                        <span>Không có MÂM</span>
+                        <strong>Thứ 3 tối</strong>
                     </div>
-                    <strong>3 bàn trống = 0đ</strong>
+                    <div class="shift-list">
+                        <div class="shift-row filled"><span>18:30</span><strong>Bàn 2</strong><em>Đã có khách</em></div>
+                        <div class="shift-row empty"><span>19:00</span><strong>Bàn 4</strong><em>Trống</em></div>
+                        <div class="shift-row empty"><span>19:30</span><strong>Bàn 2</strong><em>Trống</em></div>
+                        <div class="shift-row empty"><span>20:00</span><strong>Bàn 4</strong><em>Trống</em></div>
+                    </div>
+                    <div class="panel-total muted-total">
+                        <span>Doanh thu từ 3 bàn đó</span>
+                        <strong>0đ</strong>
+                    </div>
                 </div>
-                <div class="capacity-column filled">
-                    <span>Có MÂM</span>
-                    <div class="table-map">
-                        <i></i><i></i><i class="booked"></i><i></i><i class="booked"></i><i class="booked"></i>
+                <div class="capacity-panel mam-panel">
+                    <div class="panel-head">
+                        <span>Có MÂM</span>
+                        <strong>Thứ 3 tối</strong>
                     </div>
-                    <strong>3 booking mới = +2.8tr</strong>
+                    <div class="shift-list">
+                        <div class="shift-row filled"><span>18:30</span><strong>Bàn 2</strong><em>Đã có khách</em></div>
+                        <div class="shift-row booked"><span>19:00</span><strong>Bàn 4</strong><em>MÂM booked</em></div>
+                        <div class="shift-row booked"><span>19:30</span><strong>Bàn 2</strong><em>MÂM booked</em></div>
+                        <div class="shift-row booked"><span>20:00</span><strong>Bàn 4</strong><em>MÂM booked</em></div>
+                    </div>
+                    <div class="panel-total">
+                        <span>Doanh thu thêm ước tính</span>
+                        <strong>+2.8tr</strong>
+                    </div>
                 </div>
             </div>
         </section>
@@ -387,8 +408,8 @@
     <footer>
         <span class="footer-logo">MÂM</span>
         <div class="footer-links">
-            <a href="mailto:mamj.partner@gmail.com" data-track="email_click">mamj.partner@gmail.com</a>
-            <a href="tel:0966722946" data-track="phone_click">0966 722 946</a>
+            <a href="mailto:thanhpx@mamji.vn" data-track="email_click">thanhpx@mamji.vn</a>
+            <a href="tel:0917077969" data-track="phone_click">0917 077 969</a>
             <a href="#register">Đăng ký thử</a>
         </div>
     </footer>

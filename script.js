@@ -96,7 +96,7 @@ function submitForm() {
         method: 'partner_form'
     });
 
-    fetch('https://formsubmit.co/ajax/mamj.partner@gmail.com', {
+    fetch('https://formsubmit.co/ajax/thanhpx@mamji.vn', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -104,7 +104,6 @@ function submitForm() {
         },
         body: JSON.stringify({
             _subject: 'MÂM - Đăng ký mới: ' + name,
-            _cc: 'thanhpx@mamji.vn',
             'Tên nhà hàng': name,
             'Loại ẩm thực': cuisine,
             'Địa chỉ': addr,
