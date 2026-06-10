@@ -30,6 +30,51 @@ document.querySelectorAll('[data-track]').forEach(element => {
     });
 });
 
+const trackedScrollDepths = new Set();
+const scrollDepthTargets = [25, 50, 75, 90];
+
+function trackScrollDepth() {
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollableHeight <= 0) return;
+
+    const depth = Math.round((window.scrollY / scrollableHeight) * 100);
+    scrollDepthTargets.forEach(target => {
+        if (depth >= target && !trackedScrollDepths.has(target)) {
+            trackedScrollDepths.add(target);
+            trackAnalyticsEvent('scroll_depth', {
+                percent: target
+            });
+        }
+    });
+}
+
+window.addEventListener('scroll', trackScrollDepth, { passive: true });
+
+const sectionViewObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const eventName = entry.target.dataset.trackView;
+            if (eventName) {
+                trackAnalyticsEvent(eventName);
+                sectionViewObserver.unobserve(entry.target);
+            }
+        }
+    });
+}, { threshold: 0.45 });
+
+document.querySelectorAll('[data-track-view]').forEach(section => sectionViewObserver.observe(section));
+
+let hasTrackedFormStart = false;
+
+document.querySelectorAll('#register input, #register select, #register textarea').forEach(field => {
+    field.addEventListener('input', () => {
+        if (!hasTrackedFormStart) {
+            hasTrackedFormStart = true;
+            trackAnalyticsEvent('form_start');
+        }
+    }, { once: false });
+});
+
 function fmt(n) {
     if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0', '') + ' triệu';
     if (n >= 1000) return Math.round(n / 1000) + 'k';
