@@ -1,0 +1,17 @@
+{
+  "campaign": "tay_ho_pilot",
+  "daily_email_limit": 15,
+  "follow_up_after_days": 3,
+  "tone": "vi",
+  "offer": {
+    "first_month_mam_fee": 0,
+    "post_trial_fee_per_arrived_guest_vnd": 10000,
+    "setup": "in_person_at_restaurant",
+    "fixed_monthly_fee": 0,
+    "long_term_contract": false
+  },
+  "sender": {
+    "from_name": "Thanh | MÂM",
+    "phone": "0917 077 969"
+  }
+}
